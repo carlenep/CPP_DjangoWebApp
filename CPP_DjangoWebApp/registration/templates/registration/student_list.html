@@ -1,30 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student List</title>
+    <title>Student Registration</title>
 </head>
+
 <body>
 
-    <h1>Registered Students</h1>
+    <h1>Student Registration</h1>
 
-    <a href="{% url 'student_create' %}">Register Student</a>
+    <p>
+        <a href="{% url 'student_create' %}">Register Student</a>
+    </p>
 
-    <ul>
+    <hr>
+
+    <table border="1">
+        <tr>
+            <th>Student Name</th>
+            <th>Program</th>
+            <th>Year Level</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+
         {% for student in students %}
-            <li>
-                {{ student.student_name }} -
-                {{ student.program }} -
-                {{ student.year_level }} -
-                {{ student.email }}
-
+        <tr>
+            <td>{{ student.student_name }}</td>
+            <td>{{ student.program }}</td>
+            <td>{{ student.year_level }}</td>
+            <td>{{ student.email }}</td>
+            <td>
                 <a href="{% url 'student_update' student.pk %}">Edit</a>
-
+                |
                 <a href="{% url 'student_delete' student.pk %}">Delete</a>
-            </li>
+            </td>
+        </tr>
+
         {% empty %}
-            <li>No students registered yet.</li>
+        <tr>
+            <td colspan="5">No students registered yet.</td>
+        </tr>
         {% endfor %}
-    </ul>
+
+    </table>
 
 </body>
 </html>
