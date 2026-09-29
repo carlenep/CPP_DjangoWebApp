@@ -1,101 +1,120 @@
 {% load static %}
 
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html> <html> <head> <title>Student Dashboard</title> </head> <body>
+<h1>Student Dashboard</h1>
 
-<head>
-    <title>Student Dashboard</title>
-</head>
+<h2>Total Students</h2>
+<p>
+    {{ total_students }}
+</p>
 
-<body>
+<hr>
 
-    <h1>Student Dashboard</h1>
+<h2>AJAX Student Data</h2>
 
-    <h2>Total Students</h2>
-    <p>
-        {{ total_students }}
-    </p>
+<h2>
+    Total Students:
+    <span id="student-count">0</span>
+</h2>
 
-    <hr>
+<section>
+    <label for="student-search">Search name or email:</label>
 
-    <h2>AJAX Student Data</h2>
+    <input
+        type="search"
+        id="student-search"
+        placeholder="Type a name or email"
+    >
 
-    <h2>
-        Total Students:
-        <span id="student-count">0</span>
-    </h2>
+    <label for="program-filter">Filter by program:</label>
 
-    <p id="loading-message">Loading students...</p>
+    <select id="program-filter">
+        <option value="">All programs</option>
+    </select>
 
-    <p id="error-message"></p>
+    <button type="button" id="clear-filters">
+        Clear Filters
+    </button>
 
-    <table border="1" id="student-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Program</th>
-                <th>Year Level</th>
-                <th>Email</th>
-            </tr>
-        </thead>
+    <button type="button" id="refresh-students">
+        Refresh Data
+    </button>
+</section>
 
-        <tbody id="student-table-body">
-        </tbody>
-    </table>
+<p id="result-count" aria-live="polite">
+    Showing 0 students
+</p>
 
-    <hr>
+<p id="loading-message">
+    Loading students...
+</p>
 
-    <h2>Program Distribution</h2>
+<p id="error-message"></p>
 
-    <table border="1">
+<table border="1">
+    <thead>
         <tr>
+            <th>ID</th>
+            <th>Name</th>
             <th>Program</th>
-            <th>Total</th>
-        </tr>
-
-        {% for item in program_summary %}
-        <tr>
-            <td>{{ item.program }}</td>
-            <td>{{ item.total }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="2">No program data available.</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <hr>
-
-    <h2>Students by Year Level</h2>
-
-    <table border="1">
-        <tr>
             <th>Year Level</th>
-            <th>Total</th>
+            <th>Email</th>
         </tr>
+    </thead>
 
-        {% for item in year_summary %}
-        <tr>
-            <td>{{ item.year_level }}</td>
-            <td>{{ item.total }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="2">No year-level data available.</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <tbody id="student-table-body"></tbody>
+</table>
 
-    <hr>
+<hr>
 
-    <a href="{% url 'student_list' %}">
-        Back to Student List
-    </a>
+<h2>Program Distribution</h2>
 
-    <script src="{% static 'registration/js/student_dashboard.js' %}"></script>
+<table border="1">
+    <tr>
+        <th>Program</th>
+        <th>Total</th>
+    </tr>
 
-</body>
+    {% for item in program_summary %}
+    <tr>
+        <td>{{ item.program }}</td>
+        <td>{{ item.total }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2">No program data available.</td>
+    </tr>
+    {% endfor %}
+</table>
 
-</html>
+<hr>
+
+<h2>Students by Year Level</h2>
+
+<table border="1">
+    <tr>
+        <th>Year Level</th>
+        <th>Total</th>
+    </tr>
+
+    {% for item in year_summary %}
+    <tr>
+        <td>{{ item.year_level }}</td>
+        <td>{{ item.total }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2">No year-level data available.</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<a href="{% url 'student_list' %}">
+    Back to Student List
+</a>
+
+<script src="{% static 'registration/js/student_dashboard.js' %}"></script>
+
+</body> </html>
